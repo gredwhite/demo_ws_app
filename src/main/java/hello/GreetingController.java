@@ -23,13 +23,13 @@ public class GreetingController {
     @SendTo("/topic/greetings")
     public Greeting greeting(@Payload HelloMessage message, Principal principal) throws Exception {
         Thread.sleep(1000); // simulated delay
-        simpMessagingTemplate.convertAndSendToUser(principal.getName(), "/topic/greetings", new Greeting("Ololo"));
+        simpMessagingTemplate.convertAndSendToUser("user1", "/queue/greetings", new Greeting("Ololo"));
         return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
     }
 
     static int counter = 1;
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void test() {
         simpMessagingTemplate.convertAndSend("/topic/greetings", new Greeting("Fixed rate:" + counter++));
         simpMessagingTemplate.convertAndSendToUser("user1", "/topic/greetings", new Greeting("Fixed rate:" + counter));

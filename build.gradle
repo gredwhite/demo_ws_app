@@ -32,10 +32,10 @@ dependencies {
     compile("org.webjars:jquery:3.1.0")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     //security
-    compile ('org.springframework.security:spring-security-messaging:4.0.1.RELEASE')
-    compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.0.4.RELEASE'
+    compile ('org.springframework.security:spring-security-messaging')
+    compile group: 'org.springframework.security', name: 'spring-security-web'
     /*  compile group: 'org.springframework.integration', name: 'spring-integration-core', version: '5.0.4.RELEASE'*/
-    compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.0.4.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config'
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
