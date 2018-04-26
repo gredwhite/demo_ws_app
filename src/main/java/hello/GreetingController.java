@@ -23,7 +23,7 @@ public class GreetingController {
     @SendTo("/topic/greetings")
     public Greeting greeting(@Payload HelloMessage message, Principal principal) throws Exception {
         Thread.sleep(1000); // simulated delay
-        simpMessagingTemplate.convertAndSendToUser("user1", "/queue/greetings", new Greeting("Ololo"));
+        simpMessagingTemplate.convertAndSendToUser(principal.getName(), "/queue/greetings", new Greeting("Ololo"));
         return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
     }
 
