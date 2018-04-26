@@ -20,7 +20,7 @@ public class GreetingController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/hello")
-    //@SendTo("/topic/greetings")
+    @SendTo("/topic/greetings")
     public Greeting greeting(@Payload HelloMessage message, Principal principal) throws Exception {
         Thread.sleep(1000); // simulated delay
         simpMessagingTemplate.convertAndSendToUser(principal.getName(), "/topic/greetings", new Greeting("Ololo"));
