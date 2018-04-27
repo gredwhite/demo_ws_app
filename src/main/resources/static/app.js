@@ -15,11 +15,16 @@ function setConnected(connected) {
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
-    /*var headers = {};
-    var headerName = "X-CSRF-TOKEN";
-    var token = Cookies.get('XSRF-TOKEN')
-    headers[headerName] = token;*/
-    stompClient.connect({}, function (frame) {
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var paramName = $("meta[name='_csrf_parameter_name']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+    $('<input>').attr('type', 'hidden').attr('name', csrfHeader).attr('value', token).appendTo('#login-form');
+    var headers = {};
+    headers[csrfHeader] = token;
+
+    stompClient.connect(headers, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/greetings', function (greeting) {
