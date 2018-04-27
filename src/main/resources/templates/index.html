@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="springChat" xmlns:th="http://www.springframework.org/schema/beans">
+<head>
+    <meta charset="utf-8"/>
+    <title>Spring WebSocket Chat</title>
+    <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="_csrf_parameter_name" th:content="${_csrf.parameterName}"/>
+    <!-- Loading Bootstrap -->
+    <!-- <link href="lib/flat-ui/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+
+     &lt;!&ndash; Loading Flat UI &ndash;&gt;
+     <link href="lib/flat-ui/dist/css/flat-ui.css" rel="stylesheet">
+
+     <link href="css/chat.css" rel="stylesheet">-->
+</head>
+<body>
+<div class="container">
+    <div class="login">
+        <div class="login-screen">
+            <div class="login-icon">
+                <h4>Welcome to
+                    <small>Spring WebSocket Chat</small>
+                </h4>
+            </div>
+
+            <div class="login-form">
+                <p>
+                    <small style="color:#666">Enter a nickname to join. If you want to become admin use the password
+                        'rockandroll'
+                    </small>
+                </p>
+                <form method="post" action="/login" id="login-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control login-field" placeholder="Enter your name"
+                               name="username"/>
+                        <label class="login-field-icon fui-user" for="login-name"> Username</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control login-field" name="password"/>
+                        <label class="login-field-icon fui-lock" for="login-pass"> Admin password </label>
+                    </div>
+
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Log In"/>
+                    <input type="hidden"
+                           name='th:content="${_csrf.parameterName}"'
+                           value=th:content="${_csrf.token}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+
+</body>
+<script type="application/javascript">
+
+    $('#login-form').submit(function (ev) {
+        ev.preventDefault(); // to stop the form from submitting
+        var token = $("meta[name='_csrf']").attr("content");
+        var paramName = $("meta[name='_csrf_parameter_name']").attr("content");
+        $('<input>').attr('type', 'hidden').attr('name', paramName).attr('value', token).appendTo('#login-form');
+
+        this.submit(); // If all the validations succeeded
+    });
+</script>
+</html>

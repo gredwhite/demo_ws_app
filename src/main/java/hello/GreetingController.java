@@ -34,4 +34,9 @@ public class GreetingController {
         simpMessagingTemplate.convertAndSend("/topic/greetings", new Greeting("Fixed rate msg:" + counter++));
     }
 
+    @RequestMapping("/")
+    public String index(){
+        return "index";
+    }
+
 }

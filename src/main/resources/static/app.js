@@ -15,6 +15,10 @@ function setConnected(connected) {
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
+    /*var headers = {};
+    var headerName = "X-CSRF-TOKEN";
+    var token = Cookies.get('XSRF-TOKEN')
+    headers[headerName] = token;*/
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
