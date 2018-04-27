@@ -29,15 +29,9 @@ public class GreetingController {
 
     static int counter = 1;
 
-    //@Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 5000)
     public void test() {
-        simpMessagingTemplate.convertAndSend("/topic/greetings", new Greeting("Fixed rate:" + counter++));
-        simpMessagingTemplate.convertAndSendToUser("user1", "/topic/greetings", new Greeting("Fixed rate:" + counter));
-
+        simpMessagingTemplate.convertAndSend("/topic/greetings", new Greeting("Fixed rate msg:" + counter++));
     }
 
-   /* @RequestMapping("/sender")
-    public String sender() {
-        return "sender";
-    }*/
 }
